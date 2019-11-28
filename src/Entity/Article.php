@@ -19,7 +19,7 @@ class Article
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=40)
      */
     private $Nom;
 
@@ -43,15 +43,12 @@ class Article
      */
     private $featured_image;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
 
      /**
-      * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="contenu")
+      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="contenu")
       * @ORM\JoinColumn(nullable=false)
       */
-    private $user_id;
+    protected $user_id;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Commentaires", mappedBy="article_id")
@@ -128,12 +125,12 @@ class Article
         return $this;
     }
 
-    public function getUserId(): ?Users
+    public function getUserId(): ?User
     {
         return $this->user_id;
     }
 
-    public function setUserId(Users $user_id): self
+    public function setUserId(User $user_id ): self
     {
         $this->user_id = $user_id;
 
