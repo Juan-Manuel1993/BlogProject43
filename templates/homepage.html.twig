@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block index %}Welcome on our blog{% endblock %}</title>
+    {% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+    <link rel="stylesheet" href="maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% endblock %}
+</head>
+
+<body class="is-home">
+    <nav class="navbar is-flex is-justify-center" role="navigation" aria-label="main navigation is-primary">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item app-name" href="#">Carbonite</a>
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div id="navbar" class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="index.html" class="navbar-item">Home</a>
+                    <a href="about-us.html" class="navbar-item">About Us</a>
+                    <a href="blog.html" class="navbar-item">Blog</a>
+                    <a class="navbar-item">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section jumbotron" style="background: url(./img/jumbutron-bg.png)">
+        <div class="has-text-centered box">
+            <div class="overlapping-borders top"></div>
+            <div class="overlapping-borders left"></div>
+            <div class="overlapping-borders right"></div>
+            <h3>Lorem Empsum</h3>
+            <h1 class="main-text">Lorem is simply dummy text of the printing</h1>
+            <h3>12 SEPT 2018</h3>
+            <div class="overlapping-borders bottom"></div>
+        </div>
+    </section>
+
+    <section class="section main-content">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <div class="card">
+                        <div class="column is-12-mobile is-8-tablet is-6-widescreen is-12-desktop">
+                            <div class="item card bottom-border">
+                                <a class="item-link" href="/xbox-game-subscription-service-launches-soon/">
+                                    <figure class="image lazyload is-2by1 item-figure background-img" style="background-image:url(http://placehold.it/700x600)" alt="Xbox game subscription service launches soon">
+                                    </figure>
+                                </a>
+                                <div class="item-tags">
+                                    <a class="button tag is-rounded" href="#" title="Entertainment" aria-label="Entertainments">#Entertainment</a>
+                                    <a class="button tag is-rounded" href="#" title="Gaming" aria-label="Gamings">#Gaming</a>
+                                </div>
+                                <h2 class="title item-title is-size-4 has-text-weight-extra-bold"><a class="item-link" href="/xbox-game-subscription-service-launches-soon/">Xbox game subscription service launches soon</a></h2>
+                                <div class="level">
+                                    <div class="level-left">
+                                        <div class="item-author"><a href="/author/john/">John Doe</a></div>
+                                    </div>
+                                    <div class="level-right">
+                                        <time datetime="2018-06-07">Jun 07, 2018</time>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+
+                            <div class="item card has-border bottom-border">
+                                <a class="item-link" href="/xbox-game-subscription-service-launches-soon/">
+                                    <figure class="image lazyload is-2by1 item-figure background-img" style="background-image:url(http://placehold.it/700x600)" alt="Xbox game subscription service launches soon">
+                                    </figure>
+                                </a>
+                                <div class="item-tags">
+                                    <a class="button tag is-rounded" href="#" title="Entertainment" aria-label="Entertainments">#Entertainment</a>
+                                    <a class="button tag is-rounded" href="#" title="Gaming" aria-label="Gamings">#Gaming</a>
+                                </div>
+                                <h2 class="title item-title is-size-4 has-text-weight-extra-bold"><a class="item-link" href="/xbox-game-subscription-service-launches-soon/">Xbox game subscription service launches soon</a></h2>
+                                <div class="level">
+                                    <div class="level-left">
+                                        <div class="item-author"><a href="/author/john/">John Doe</a></div>
+                                    </div>
+                                    <div class="level-right">
+                                        <time datetime="2018-06-07">Jun 07, 2018</time>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <ul class="pagination-list">
+                            <li><a class="pagination-link pagination-btn"><i class="fa fa-arrow-left"></i></a></li>
+                            <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+                            <li><a class="pagination-link" aria-label="Goto page 2">2</a></li>
+                            <li><a class="pagination-link" aria-label="Goto page 3">3</a></li>
+                            <li><a class="pagination-link" aria-label="Goto page 4">4</a></li>
+                            <li><a class="pagination-link pagination-btn"><i class="fa fa-arrow-right"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="column sidebar">
+                        <div id="about-me">
+                            <div class="has-text-centered">
+                                <div class="img" style="background: url(./img/aboutme.png)"></div>
+                                <h1 class="has-text-white is-uppercase">About Me</h1>
+                            </div>
+                            <div class="has-text-white body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium facilis, culpa, maiores perspiciatis neque fugiat exercitationem vero soluta eaque expedita suscipit commodi blanditiis aliquid magnam delectus et! Quaerat, adipisci omnis.<a href="" class="has-text-white is-uppercase">Read More</a></div>
+                        </div>
+                        <div id="categories" class="dashed-container">
+                            <div class="dashed-container__title is-uppercase">Categories<span></span></div>
+                            <div class="dashed-container__content">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="">Lorem ipsum dolor sit amet consectetur</a></td>
+                                            <td><span class="dashed-container__content-counter">(33)</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="">Lorem ipsum dolor sit amet consectetur</a></td>
+                                            <td><span class="dashed-container__content-counter">(33)</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="">Lorem ipsum dolor sit amet consectetur</a></td>
+                                            <td><span class="dashed-container__content-counter">(33)</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="">Lorem ipsum dolor sit amet consectetur</a></td>
+                                            <td><span class="dashed-container__content-counter">(33)</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="">Lorem ipsum dolor sit amet consectetur</a></td>
+                                            <td><span class="dashed-container__content-counter">(33)</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="">Lorem ipsum dolor sit amet consectetur</a></td>
+                                            <td><span class="dashed-container__content-counter">(33)</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="latest-blogs" class="dashed-container">
+                            <div class="dashed-container__title is-uppercase">Latest Blogs<span></span></div>
+                            <div class="dashed-container__content">
+                                <a href="" class="latest-blogs__item">
+                                    <div class="latest-blogs__item-image" style="background: url('./img/latest-blog-1.png')"></div>
+                                    <div class="latest-blogs__item-content">
+                                        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                                        <div>12-09-2018</div>
+                                    </div>
+                                </a>
+                                <a href="" class="latest-blogs__item">
+                                    <div class="latest-blogs__item-image" style="background: url('./img/latest-blog-2.png')"></div>
+                                    <div class="latest-blogs__item-content">
+                                        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                                        <div>12-09-2018</div>
+                                    </div>
+                                </a>
+                                <a href="" class="latest-blogs__item">
+                                    <div class="latest-blogs__item-image" style="background: url('./img/latest-blog-3.png')"></div>
+                                    <div class="latest-blogs__item-content">
+                                        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                                        <div>12-09-2018</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="dashed-container">
+                            <div class="dashed-container__title is-uppercase">Subscribe & Follow<span></span></div>
+                            <div class="dashed-container__content">
+                                <div>
+                                    <ul class="sidebar-social-links">
+                                        <li><a href="" style="color: #36549d;"><span class="fa fa-facebook-f"></span></a></li>
+                                        <li><a href="" style="color: #00aaf9;"><span class="fa fa-twitter"></span></a></li>
+                                        <li><a href="" style="color: #0081c4;"><span class="fa fa-linkedin"></span></a></li>
+                                        <li><a href="" style="color: #e32601;"><span class="fa fa-youtube"></span></a></li>
+                                        <li><a href="" style="color: #36549d;"><span class="fa fa-instagram"></span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="img-list">
+            <div class="columns img-list__container">
+                <div class="column img-list__item" style="background: url('./img/img-list-1.png')"></div>
+                <div class="column img-list__item" style="background: url('./img/img-list-2.png')"></div>
+                <div class="column img-list__item" style="background: url('./img/img-list-3.png')"></div>
+                <div class="column img-list__item" style="background: url('./img/img-list-4.png')"></div>
+                <div class="column img-list__item" style="background: url('./img/img-list-5.png')"></div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div>© 2018 Carbonite Blog - All Rights Reserved.</div>
+                    <div>
+                        <ul class="footer-social-links">
+                            <li><a href=""><span class="fa fa-facebook-f"></span></a></li>
+                            <li><a href=""><span class="fa fa-twitter"></span></a></li>
+                            <li><a href=""><span class="fa fa-linkedin"></span></a></li>
+                            <li><a href=""><span class="fa fa-youtube"></span></a></li>
+                            <li><a href=""><span class="fa fa-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script type="text/javascript" src="js/main.js"></script>
+    </body>
+    </html>
