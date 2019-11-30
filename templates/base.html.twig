@@ -4,8 +4,10 @@
     <title>{% block title %}Blog of Juan & Dareine{% endblock %}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logo_blog.png') }}" />
     {% block stylesheets %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     {% endblock %}
 </head>
@@ -25,12 +27,9 @@
                 </div>
                 <div id="navbarMenu" class="navbar-menu">
                     <div class="navbar-end">
-                        <a class="navbar-item is-active">Home</a>
-                        <a class="navbar-item">Examples</a>
-                        <a class="navbar-item">Features</a>
-                        <a class="navbar-item">Team</a>
-                        <a class="navbar-item">Archives</a>
-                        <a class="navbar-item">Help</a>
+                        <a class="navbar-item">Gallery</a>
+                        <a class="navbar-item is-active">Tag</a>
+                        <a class="navbar-item">À propos</a>
                     </div>
                 </div>
             </div>
@@ -41,109 +40,56 @@
 
     {% endblock %}
 
+    <footer>
+        <div class="container">
+            <div class="columns">
+                <div class="column is-one-fifth">
+                    <p class="footer-link-title has-text-weight-bold">Navigation</p>
+                    <a class="navbar-item nav-home is-active" href="#">Home</a>
+                    <a class="navbar-item nav-style-guide" href="#">Gallery</a>
+                    <a class="navbar-item nav-style-guide" href="#">Tag</a>
+                </div>
+
+                <div class="column is-two-fifths">
+                    <p class="footer-link-title has-text-weight-bold">Dareine AMOA</p>
+                    <span class="icon is-large">
+                        <a target="_blank" rel="noopener noreferrer" href="https://facebook.com/maiddima"><i class="ion-ionic ion-logo-facebook ion-3x"></i></a>
+                    </span>
+                    <span class="icon is-large">
+                        <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/maiddima"><i class="ion-ionic ion-logo-twitter ion-3x"></i></a>
+                    </span>
+                    <span class="icon is-large">
+                        <a target="_blank" rel="noopener noreferrer" href="https://instagram.com/maiddimart"><i class="ion-ionic ion-logo-instagram ion-3x"></i></a>
+                    </span>
+                    <span class="icon is-large">
+                        <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/dareine/"><i class="ion-ionic ion-logo-linkedin ion-3x"></i></a>
+                    </span>
+                    <span class="icon is-large">
+                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/maiddima"><i class="ion-ionic ion-logo-github ion-3x"></i></a>
+                    </span>
+                </div>
+
+                <div class="column is-two-fifths">
+                    <p class="footer-link-title has-text-weight-bold">Zah ZORO-BI</p>
+                    <span class="icon is-large">
+                        <a target="_blank" rel="noopener noreferrer" href="https://facebook.com/jeanemmanuel.zorobi"><i class="ion-ionic ion-logo-facebook ion-3x"></i></a>
+                    </span>
+                    <span class="icon is-large">
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/jeanemmanuel_zoro_bi_/"><i class="ion-ionic ion-logo-instagram ion-3x"></i></a>
+                    </span>
+                    <span class="icon is-large">
+                        <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/jean-emmanuel-zoro-bi-4aa587142/"><i class="ion-ionic ion-logo-linkedin ion-3x"></i></a>
+                    </span>
+                    <span class="icon is-large">
+                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/Juan-Manuel1993"><i class="ion-ionic ion-logo-github ion-3x"></i></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     {% block scripts %}
 
     {% endblock %}
-
-    <footer class="footer">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-4">
-                    <p class="footer-link-title has-text-weight-bold">Navigation</p>
-                    <a class="navbar-item nav-home is-active" href="https://biron.bironthemes.com/">Home</a>
-                    <a class="navbar-item nav-style-guide" href="https://biron.bironthemes.com/style-guide/">Style Guide</a>
-                    <a class="navbar-item nav-features" href="https://biron.bironthemes.com/features/">Features</a>
-                    <a class="navbar-item nav-tech" href="https://biron.bironthemes.com/tag/technology/">#Tech</a>
-                    <a class="navbar-item nav-web" href="https://biron.bironthemes.com/tag/web/">#Web</a>
-                </div>
-                <div class="column is-4">
-                    <p class="footer-link-title has-text-weight-bold">Follow Us</p>
-                    <div class="social-media">
-                        <a class="social-link facebook" href="https://www.facebook.com/maiddima" target="_blank" title="Facebook" aria-label="Facebook">
-                            <div class="icon facebook">
-                                <svg class="icon__svg">
-                                    <use xlink:href="#facebook"></use>
-                                </svg>
-                            </div>
-                            <p>Facebook</p>
-                        </a>
-                        <a class="social-link twitter" href="https://twitter.com/maiddima" target="_blank" title="Twitter"  aria-label="Twitter">
-                            <div class="icon twitter">
-                                <svg class="icon__svg">
-                                    <use xlink:href="#twitter"></use>
-                                </svg>
-                            </div>
-                            <p>Twitter</p>
-                        </a>
-                        <a class="social-link instagram" href="https://instagram.com/maiddimart" target="_blank" title="Instagram" aria-label="Instagram">
-                            <div class="icon instagram">
-                                <svg class="icon__svg">
-                                    <use xlink:href="#instagram"></use>
-                                </svg>
-                            </div>
-                            <p>Instagram</p>
-                        </a>
-                        <a class="social-link linkedin" href="https://linkedin.com/in/dareine/" target="_blank" title="Linkedin" aria-label="Linkedin">
-                            <div class="icon linkedin">
-                                <svg class="icon__svg">
-                                    <use xlink:href="#linkedin"></use>
-                                </svg>
-                            </div>
-                            <p>Linkedin</p>
-                        </a>
-                        <a class="social-link github" href="https://github.com/maiddima" target="_blank" title="Github" aria-label="Github">
-                            <div class="icon github">
-                                <svg class="icon__svg">
-                                    <use xlink:href="#github"></use>
-                                </svg>
-                            </div>
-                            <p>Github</p>
-                        </div>
-                    </div>
-                    <div class="column is-4">
-                        <p class="footer-link-title has-text-weight-bold">Follow Us</p>
-                        <div class="social-media">
-                            <a class="social-link facebook" href="https://www.facebook.com/www.facebook.com/jeanemmanuel.zorobi" target="_blank" title="Facebook" aria-label="Facebook">
-                                <div class="icon facebook">
-                                    <svg class="icon__svg">
-                                        <use xlink:href="#facebook"></use>
-                                    </svg>
-                                </div>
-                                <p>Facebook</p>
-                            </a>
-                            <a class="social-link instagram" href="https://www.instagram.com/jeanemmanuel_zoro_bi_/" target="_blank" title="Instagram" aria-label="Instagram">
-                                <div class="icon instagram">
-                                    <svg class="icon__svg">
-                                        <use xlink:href="#instagram"></use>
-                                    </svg>
-                                </div>
-                                <p>Instagram</p>
-                            </a>
-                            <a class="social-link linkedin" href="https://linkedin.com/in/jean-emmanuel-zoro-bi-4aa587142/" target="_blank" title="Linkedin" aria-label="Linkedin">
-                                <div class="icon linkedin">
-                                    <svg class="icon__svg">
-                                        <use xlink:href="#linkedin"></use>
-                                    </svg>
-                                </div>
-                                <p>Linkedin</p>
-                            </a>
-                            <a class="social-link github" href="https://github.com/Juan-Manuel1993" target="_blank" title="Github" aria-label="Github">
-                                <div class="icon github">
-                                    <svg class="icon__svg">
-                                        <use xlink:href="#github"></use>
-                                    </svg>
-                                </div>
-                                <p>Github</p>
-                            </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="footer-bottom has-text-centered">
-                    &copy; 2019 <a href="https://biron.bironthemes.com">Biron</a>.
-                    Published with <a href="https://ghost.org">Ghost</a>.
-                    Theme by <a href="https://bironthemes.com">Biron Themes</a>.
-                </div>
-            </div>
-        </footer>
 </body>
 </html>
