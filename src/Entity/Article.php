@@ -1,4 +1,4 @@
-<?php
+contenu<?php
 
 namespace App\Entity;
 
@@ -19,14 +19,15 @@ class Article
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=255)
      */
-    private $Nom;
+    private $title;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $Contenu;
+    private $contenu;
 
     /**
      * @ORM\Column(type="datetime")
@@ -65,26 +66,26 @@ class Article
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getTitle(): ?string
     {
-        return $this->Nom;
+        return $this->title;
     }
 
-    public function setNom(string $Nom): self
+    public function setTitle(string $title): self
     {
-        $this->Nom = $Nom;
+        $this->title = $title;
 
         return $this;
     }
 
     public function getContenu(): ?string
     {
-        return $this->Contenu;
+        return $this->contenu;
     }
 
-    public function setContenu(string $Contenu): self
+    public function setContenu(string $contenu): self
     {
-        $this->Contenu = $Contenu;
+        $this->contenu = $contenu;
 
         return $this;
     }
@@ -137,7 +138,7 @@ class Article
         return $this;
     }
 
-    public function addContenu(Commentaires $contenu): self
+    public function addcontenu(Commentaires $contenu): self
     {
         if (!$this->contenu->contains($contenu)) {
             $this->contenu[] = $contenu;
@@ -147,7 +148,7 @@ class Article
         return $this;
     }
 
-    public function removeContenu(Commentaires $contenu): self
+    public function removecontenu(Commentaires $contenu): self
     {
         if ($this->contenu->contains($contenu)) {
             $this->contenu->removeElement($contenu);
