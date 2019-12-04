@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -42,10 +43,9 @@ class Article
      * @ORM\Column(type="string", length=255)
      */
     private $featured_image;
-
+ // @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="contenu")
 
      /**
-      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="contenu")
       * @ORM\JoinColumn(nullable=false)
       */
     protected $user_id;
@@ -125,12 +125,12 @@ class Article
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUserId(): ?int
     {
         return $this->user_id;
     }
 
-    public function setUserId(User $user_id ): self
+    public function setUserId(int $user_id ): self
     {
         $this->user_id = $user_id;
 
