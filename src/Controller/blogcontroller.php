@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
-
 use  App\Entity\Article;
 use  App\Entity\User;
+use FOS\UserBundle\Model;
+use Symfony\Form\Extension\Core\Type\IntegerType;
+use Symfony\Form\Extension\Core\Type\DateType;
+use Symfony\Form\Extension\Core\Type\SubmitType;
+use Symfony\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,7 +66,7 @@ class blogcontroller extends AbstractController
       /**
      * @Route("/new", name="create_article")
      */
-    public function createProduct(): Response
+    public function createArticle(): Response
     {
         // you can fetch the EntityManager via $this->getDoctrine()
         // or you can add an argument to the action: createProduct(EntityManagerInterface $entityManager)
@@ -117,7 +122,7 @@ class blogcontroller extends AbstractController
      * @Route("/show/{Articleid}",methods={"GET"},name="show_article")
      */
     public function showAction($Articleid): Response
-{
+    {
     $article = $this->getDoctrine()
         ->getRepository(Article::class)
         ->find($Articleid);
@@ -130,7 +135,47 @@ class blogcontroller extends AbstractController
 
     // ... do something, like pass the $product object into a template
      return new Response('Article Found with id '.$article->getContenu());
-}
+    }
+/*
+
+    public function new(Request $request)
+    {
+        // creates a task object and initializes some data for this example
+        $user = new Task();
+        $task->setTask('Write a blog post');
+        $task->setDueDate(new \DateTime('tomorrow'));
+
+        $form = $this->createFormBuilder($task)
+            ->add('task', TextType::class)
+            ->add('dueDate', DateType::class)
+            ->add('save', SubmitType::class, ['label' => 'Create Task'])
+            ->getForm();
+
+        // ...
+    }
+
+    */
+
+
+     /**
+     * @Route("/getforms",name="getforms")
+     */
+    public function getforms(): Response  
+    {
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        $user = $repository->find;
+
+        //$userManager = $this->UserManager;
+       /* $userManager = $this->get('fos_user.userManager');
+        $users = $userManager->findUsers();
+       */
+       return new Response('email found : '.$user->getEmail());   
+
+    }
+
 
 }
+
 
