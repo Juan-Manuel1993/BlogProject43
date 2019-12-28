@@ -1,4 +1,4 @@
-contenu<?php
+<?php
 
 namespace App\Entity;
 
@@ -19,7 +19,6 @@ class Article
     private $id;
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -54,11 +53,22 @@ class Article
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Commentaires", mappedBy="article_id")
      */
-    private $contenu;
+    private $commentaires;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="articles")
+     */
+    private $tag;
 
     public function __construct()
     {
         $this->contenu = new ArrayCollection();
+        $this->tag = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -138,24 +148,62 @@ class Article
         return $this;
     }
 
-    public function addcontenu(Commentaires $contenu): self
+    public function addcontenu(Commentaires $commentaires): self
     {
-        if (!$this->contenu->contains($contenu)) {
-            $this->contenu[] = $contenu;
-            $contenu->setArticleId($this);
+        if (!$this->$commentaires->contains($commentaires)) {
+            $this->$commentaires[] = $commentaires;
+            $commentaires->setArticleId($this);
         }
 
         return $this;
     }
 
-    public function removecontenu(Commentaires $contenu): self
+    public function removecontenu(Commentaires $commentaires): self
     {
-        if ($this->contenu->contains($contenu)) {
-            $this->contenu->removeElement($contenu);
+        if ($this->$commentaires->contains($commentaires)) {
+            $this->$commentaires->removeElement($commentaires);
             // set the owning side to null (unless already changed)
-            if ($contenu->getArticleId() === $this) {
-                $contenu->setArticleId(null);
+            if ($commentaires->getArticleId() === $commentaires) {
+                $commentaires->setArticleId(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTag(): Collection
+    {
+        return $this->tag;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tag->contains($tag)) {
+            $this->tag[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tag->contains($tag)) {
+            $this->tag->removeElement($tag);
         }
 
         return $this;

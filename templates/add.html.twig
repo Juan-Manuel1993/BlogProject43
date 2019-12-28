@@ -1,51 +1,86 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
+{% extends "base.html.twig" %}
 
-        <title>{% block index %}Welcome Mister! {% endblock %}</title>
-        {% block stylesheets %}
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
-          <link rel="stylesheet" href="maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %} <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My custom Bulma website</title>
-    <link rel="stylesheet" href="css/mystyles.css">
-  </head>
-  <body>
-     <h1 class="title">
-        Ajouter un article
-      </h1>
+{% block title %}Ajouter un article - {{ parent() }}{% endblock %}
 
-      <div class="field">
-        <div class="control">
-          <input class="input" type="text" placeholder="Input">
+{% block content %}
+
+<section class="section" id="add_article">
+    <div class="column">
+        <div class="section-heading">
+            <h3 class="title is-2 has-text-black has-text-centered">Ajouter un article</h3>
         </div>
-      </div>
+        <br>
 
-      <div class="field">
-        <p class="control">
-          <span class="select">
-            <select>
-              <option>Select dropdown</option>
-            </select>
-          </span>
-        </p>
-      </div>
+        <div class="columns">
+            <div class="column is-8 is-offset-2">
+                {{ form_start(form) }}
+                    <div class="field">
+                        {{ form_label(form.title, 'Titre',{'label_attr': {'class': 'label'}})}}
+                        <div class="control has-icons-left">
+                            {{ form_widget(form.title, {'attr': {'placeholder': 'e.g Un titre', 'class': 'input'}})}}
+                            <span class="icon is-small is-left">
+                                <i class="ion-ionic ion-md-paper"></i>
+                            </span>
+                        </div>
+                    </div>
 
-      <div class="buttons">
-        <a class="button is-primary">Primary</a>
-        <a class="button is-link">Link</a>
-      </div>
-  </body>
-</html>{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+                    <div class="field">
+                        {{ form_label(form.featured_image, 'Image',{'label_attr': {'class': 'label'}})}}
+                        <div id="file-js-example" class="file has-name is-fullwidth">
+                            <label class="file-label">
+                                {{ form_widget(form.featured_image, {'attr': {'class' : 'file-input'}})}}
+                                <span class="file-cta">
+                                    <span class="file-icon">
+                                        <i class="ion-ionic ion-md-image"></i>
+                                    </span>
+                                    <span class="file-label">
+                                        Choose a file…
+                                    </span>
+                                </span>
+                                <span class="file-name">
+                                    No file uploaded
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Phone</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="phone" placeholder="e.g 5551234567" value="">
+                            <span class="icon is-small is-left">
+                                <i class="fa fa-phone"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Contenu de l'article</label>
+                        <div class="control">
+                            {{ form_widget(form.contenu, {'attr': {'class' : 'textarea', 'placeholder' : 'ex: <h1>Article</h1><p>Paragraphe 1</p>'}})}}
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="field is-grouped has-text-centered">
+                    <div class="control">
+                        <button class="button is-medium"><span class="icon">
+                            <i class="ion-ionic ion-md-paper"></i>
+                        </span>
+                        <span>Ajouter</span></button>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+</div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ asset('assets/js/file_upload_name.js') }}"></script>
+
+{% endblock %}
