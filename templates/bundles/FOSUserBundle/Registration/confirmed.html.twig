@@ -3,8 +3,28 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-    <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+<div class="hero is-fullheight "  style="background-image:url(/assets/images/na.jpg)" >
+<nav class="level">
+ 
+  <p class="level-item has-text-centered">
+    <a class="link" href="{{ path('fos_user_security_logout') }}">Home </a>
+  </p>
+
+   <p class="level-item has-text-centered">
+    <a class="link" href="{{ path('fos_user_registration_register') }}">
+                {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
+            </a>
+  </p>
+
+</nav>
+	<div class="hero-head is-size-2 has-text-link has-text-centered">{{ 'registration.confirmed'|trans({'%username%': user.username}) }}
+    
+
     {% if targetUrl %}
     <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
     {% endif %}
+
+
+</div>
+
 {% endblock fos_user_content %}
