@@ -24,4 +24,19 @@ class User extends BaseUser
 
     }
 
+    
+
+
+    public function GetId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function SetId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
 }
