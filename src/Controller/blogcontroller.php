@@ -165,7 +165,7 @@ class blogcontroller extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(User::class);
 
-        $user = $repository->find;
+        $user = $repository->find(1);
 
         //$userManager = $this->UserManager;
        /* $userManager = $this->get('fos_user.userManager');

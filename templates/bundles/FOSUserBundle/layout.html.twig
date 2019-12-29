@@ -11,20 +11,16 @@
     {% endblock %}
     </head>
     <body>
-        <div class="hero">
-                <div class="hero-head">
-                    <div class="container has-text-centered">
+        
+                   
                         <div class="column is-4 is-offset-4">
-                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                                <a href="{{ path('fos_user_security_logout') }}">
-                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                                </a>              
-                            {% endif %}
-                        </div>
-                    </div>
+                            </div>
+
+           
+            
                 </div>
-        </div>
+        
+                     
 
 
         {% if app.request.hasPreviousSession %}
@@ -40,6 +36,9 @@
              <div>
             {% block fos_user_content %}
             {% endblock fos_user_content %}
-        </div>
+        
     </body>
+
+
+
 </html>
