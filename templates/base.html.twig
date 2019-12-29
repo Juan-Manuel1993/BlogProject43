@@ -32,6 +32,11 @@
                         <a class="navbar-item">Gallery</a>
                         <a class="navbar-item is-active">Tag</a>
                         <a class="navbar-item">À propos</a>
+                        <a class="navbar-item"  href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                        <a class="navbar-item" href="{{ path('fos_user_registration_register') }}">
+                {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
+            </a>
+
                     </div>
                 </div>
             </div>
