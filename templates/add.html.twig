@@ -22,6 +22,7 @@
                                 <i class="ion-ionic ion-md-paper"></i>
                             </span>
                         </div>
+                        <p class="help is-danger">{{ form_errors(form.title, {'errors_attr': {'class' : 'help is-danger'}})}}
                     </div>
 
                     <div class="field">
@@ -45,28 +46,26 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Phone</label>
-                        <div class="control has-icons-left">
-                            <input class="input" type="phone" placeholder="e.g 5551234567" value="">
-                            <span class="icon is-small is-left">
-                                <i class="fa fa-phone"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="field">
                         <label class="label">Contenu de l'article</label>
                         <div class="control">
                             {{ form_widget(form.contenu, {'attr': {'class' : 'textarea', 'placeholder' : 'ex: <h1>Article</h1><p>Paragraphe 1</p>'}})}}
                         <span></span>
                     </div>
+
+                    <div class="field">
+                        {{ form_label(form.tag, 'Tag(s)',{'label_attr': {'class': 'label'}})}}
+                        <div class="control">
+                            {{ form_widget(form.tag, {'attr': {'class' : 'multiple'}})}}
+                        </div>
+                    </div>
                 </div>
 
                 <div class="field is-grouped has-text-centered">
                     <div class="control">
-                        <button class="button is-medium"><span class="icon">
-                            <i class="ion-ionic ion-md-paper"></i>
-                        </span>
+                        <button class="button is-medium">
+                            <span class="icon">
+                                <i class="ion-ionic ion-md-paper"></i>
+                            </span>
                         <span>Ajouter</span></button>
                     </div>
                 </div>
@@ -82,5 +81,6 @@
 {% block scripts %}
 
 <script src="{{ asset('assets/js/file_upload_name.js') }}"></script>
+<script src="{{ asset('assets/js/select.js') }}"></script>
 
 {% endblock %}
