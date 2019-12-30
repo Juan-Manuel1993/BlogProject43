@@ -29,6 +29,16 @@ class blogcontroller extends AbstractController
         return $this->render('index.html.twig', ['controller_name' => 'blogcontroller']);
     }
 
+
+    /**
+    * @Route("/log")
+    */
+    public function login()
+    {
+
+        return $this->render('login_content.html.twig', ['controller_name' => 'blogcontroller']);
+    }
+
     /**
     * @Route("/homepage")
     */
