@@ -31,7 +31,10 @@
                     <div class="navbar-end">
                         <a class="navbar-item">Gallery</a>
                         <a class="navbar-item is-active">Tag</a>
-                        <a class="navbar-item">À propos</a>
+                        {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                        <a class="navbar-item" href="{{ path('fos_user_profile_show') }}">User</a>
+                        
+                        {% endif %}
                         <a class="navbar-item"  href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
                         <a class="navbar-item" href="{{ path('fos_user_registration_register') }}">
                 {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
