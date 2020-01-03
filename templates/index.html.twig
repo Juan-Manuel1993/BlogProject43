@@ -1,193 +1,49 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Accueil | {{ parent() }}{% endblock %}
+{% block title %}Accueil - {{ parent() }}{% endblock %}
 
 {% block content %}
 
 <div class="container">
     <div class="section">
-        <div class="columns">
-            <div class="column is-two-thirds is-mobile">
-                <div class="section">
-                    <div class="columns is-multiline">
-                        <div class="column is-half">
+        <div class="column">
+            <div class="section">
+                <div class="columns is-multiline">
+                    {% for article in articles %}
+                        <div class="column is-one-third">
                             <div class="card bottom-border">
                                 <div class="card-image">
-                                    <a href="#">
+                                    <a href="{{ path('article_show', {'articleSlug': article.slug}) }}">
                                         <figure class="image is-2by1">
-                                            <img src="https://bulma.io/images/placeholders/640x320.png" alt="">
+                                            <img src="{{ asset('uploads/articlePic/' ~ article.featuredimage) }}" alt="">
                                         </figure>
                                     </a>
                                 </div>
-                                <div class="card-content is-mobile">
+                                <div class="card-content is-mobile is-tablet">
                                     <div class="is-clearfix">
                                         <div class="tags is-pulled-left">
-                                            <a class="tag is-rounded" href="#" title="Entertainment" aria-label="Entertainments">Entertainment</a>
-                                            <a class="tag is-rounded" href="#" title="Gaming" aria-label="Gamings">Gaming</a>
+                                            {% for tag in article.tag %}
+                                            <a class="tag is-rounded" href="#" title="{{tag.tagname}}" aria-label="{{tag.tagname}}">{{tag.tagname}}</a>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                     <div class="is-clearfix">
                                         <div class="is-pulled-left">
-                                            <h2 class="title item-title is-size-4 has-text-weight-extra-bold"><a class="item-link" href="#">Xbox game subscription service launches soon</a></h2>
+                                            <h2 class="title item-title is-size-4 has-text-weight-extra-bold"><a class="item-link" href="{{ path('article_show', {'articleSlug': article.slug}) }}">{{ article.title }}</a></h2>
                                         </div>
                                     </div>
                                     <div class="is-clearfix">
                                         <div class="is-pulled-left">
-                                            <div class="item-author"><a href="#">maiddima</a></div>
+                                            <div class="item-author"><a href="#">{{ article.user.username }}</a></div>
                                         </div>
                                         <div class="is-pulled-right">
-                                            <time datetime="2018-06-07">07 Juin, 2018</time>
+                                            <time datetime="{{ article.createdat|date('Y-m-d') }}">{{ article.createdat|date('d/m/Y') }}</time>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                        <div class="column is-half">
-                            <div class="card bottom-border">
-                                <div class="card-image">
-                                    <a href="#">
-                                        <figure class="image is-2by1">
-                                            <img src="https://bulma.io/images/placeholders/640x320.png" alt="">
-                                        </figure>
-                                    </a>
-                                </div>
-                                <div class="card-content">
-                                    <div class="is-clearfix">
-                                        <div class="tags is-pulled-left">
-                                            <a class="tag is-rounded" href="#" title="Entertainment" aria-label="Entertainments">Entertainment</a>
-                                            <a class="tag is-rounded" href="#" title="Gaming" aria-label="Gamings">Gaming</a>
-                                        </div>
-                                    </div>
-                                    <div class="is-clearfix">
-                                        <div class="is-pulled-left">
-                                            <h2 class="title item-title is-size-4 has-text-weight-extra-bold"><a class="item-link" href="#">Xbox game subscription service launches soon</a></h2>
-                                        </div>
-                                    </div>
-                                    <div class="is-clearfix">
-                                        <div class="is-pulled-left">
-                                            <div class="item-author"><a href="#">Zoro</a></div>
-                                        </div>
-                                        <div class="is-pulled-right">
-                                            <time datetime="2018-06-07">07 Juin, 2018</time>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-half">
-                            <div class="card bottom-border">
-                                <div class="card-image">
-                                    <a href="#">
-                                        <figure class="image is-2by1">
-                                            <img src="https://bulma.io/images/placeholders/640x320.png" alt="">
-                                        </figure>
-                                    </a>
-                                </div>
-                                <div class="card-content is-mobile">
-                                    <div class="is-clearfix">
-                                        <div class="tags is-pulled-left">
-                                            <a class="tag is-rounded" href="#" title="Entertainment" aria-label="Entertainments">Entertainment</a>
-                                            <a class="tag is-rounded" href="#" title="Gaming" aria-label="Gamings">Gaming</a>
-                                        </div>
-                                    </div>
-                                    <div class="is-clearfix">
-                                        <div class="is-pulled-left">
-                                            <h2 class="title item-title is-size-4 has-text-weight-extra-bold"><a class="item-link" href="#">Xbox game subscription service launches soon</a></h2>
-                                        </div>
-                                    </div>
-                                    <div class="is-clearfix">
-                                        <div class="is-pulled-left">
-                                            <div class="item-author"><a href="#">maiddima</a></div>
-                                        </div>
-                                        <div class="is-pulled-right">
-                                            <time datetime="2018-06-07">07 Juin, 2018</time>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-half">
-                            <div class="card bottom-border">
-                                <div class="card-image">
-                                    <a href="#">
-                                        <figure class="image is-2by1">
-                                            <img src="https://bulma.io/images/placeholders/640x320.png" alt="">
-                                        </figure>
-                                    </a>
-                                </div>
-                                <div class="card-content">
-                                    <div class="is-clearfix">
-                                        <div class="tags is-pulled-left">
-                                            <a class="tag is-rounded" href="#" title="Entertainment" aria-label="Entertainments">Entertainment</a>
-                                            <a class="tag is-rounded" href="#" title="Gaming" aria-label="Gamings">Gaming</a>
-                                        </div>
-                                    </div>
-                                    <div class="is-clearfix">
-                                        <div class="is-pulled-left">
-                                            <h2 class="title item-title is-size-4 has-text-weight-extra-bold"><a class="item-link" href="#">Xbox game subscription service launches soon</a></h2>
-                                        </div>
-                                    </div>
-                                    <div class="is-clearfix">
-                                        <div class="is-pulled-left">
-                                            <div class="item-author"><a href="#">Zoro</a></div>
-                                        </div>
-                                        <div class="is-pulled-right">
-                                            <time datetime="2018-06-07">07 Juin, 2018</time>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="section">
-                    <nav class="pagination is-centered">
-                        <a class="pagination-previous">Previous</a>
-                        <a class="pagination-next">Next page</a>
-                        <ul class="pagination-list">
-                            <li><a class="pagination-link">1</a></li>
-                            <li><span class="pagination-ellipsis">&hellip;</span></li>
-                            <li><a class="pagination-link">45</a></li>
-                            <li><a class="pagination-link is-current">46</a></li>
-                            <li><a class="pagination-link">47</a></li>
-                            <li><span class="pagination-ellipsis">&hellip;</span></li>
-                            <li><a class="pagination-link">86</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <div class="column">
-                <div class="section">
-                    <div class="field is-grouped">
-                        <p class="control is-expanded">
-                            <input class="input" type="text" placeholder="Find a repository">
-                        </p>
-                        <p class="control">
-                            <a class="button is-primary">
-                                Search
-                            </a>
-                        </p>
-                    </div>
-                </div>
-                <div class="section">
-                    <aside class="menu">
-                        <p class="menu-label">
-                            最近の投稿
-                        </p>
-                        <ul class="menu-list">
-                            <li><a>Lorem ipsum dolor sit amet, consectetur.</a></li>
-                            <li><a>Lorem ipsum dolor sit amet, consectetur.</a></li>
-                            <li><a>Lorem ipsum dolor sit amet, consectetur.</a></li>
-                            <li><a>Lorem ipsum dolor sit amet, consectetur.</a></li>
-                            <li><a>Lorem ipsum dolor sit amet, consectetur.</a></li>
-                            <li><a>Lorem ipsum dolor sit amet, consectetur.</a></li>
-                        </ul>
-                    </aside>
+                    {% endfor %}
                 </div>
             </div>
         </div>
