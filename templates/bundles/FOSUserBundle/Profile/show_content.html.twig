@@ -6,7 +6,7 @@
 	
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
 
-    <p><a href="{{ targetUrl }}">{{ 'profile.edit'|trans }}</a></p>
+    <p><a href="{{ 'layout.edit'|trans({}, 'FOSUserBundle') }}</a></p>
     	 
 </div>
 </div>
