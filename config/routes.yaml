@@ -5,3 +5,7 @@
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+article_show:
+   path: /post/{articleSlug}
+   controller: App\Controller\blogcontroller::article_show
