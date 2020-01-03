@@ -1,17 +1,17 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ slug }} - {{ parent() }}{% endblock %}
+{% block title %}{{ article.title }} - {{ parent() }}{% endblock %}
 
 {% block content %}
 
-<section class="hero background-img is-primary"  style="background-image: linear-gradient(rgba(0, 0, 0, 0.49),rgba(0, 0, 0, 0.89)),url('https://bulma.io/images/placeholders/640x480.png')">
+<section class="hero background-img is-primary"  style="background-image: linear-gradient(rgba(0, 0, 0, 0.49),rgba(0, 0, 0, 0.89)),url('{{ asset('uploads/articlePic/' ~ article.featuredimage) }}')">
     <div class="hero-body">
         <div class="container has-text-centered">
             <h1 class="title has-text-white is-size-1 has-text-weight-bold">
-                {{ slug }}
+                {{ article.title }}
             </h1>
             <div class="section">
-                <div class="column is-4 is-offset-4 is-mobile is-tablet">
+                <div class="column is-4 is-offset-4">
                     <div class="is-clearfix">
                         <div class="is-pulled-left">
                             <figure class="image is-128x128">
@@ -19,10 +19,26 @@
                             </figure>
                         </div>
                         <div class="is-pulled-right">
-                            <a href="/author/john/" class="has-text-light is-size-4">maiddima</a>
+                            <h6><i>auteur : </i></h6><a href="#" class="has-text-light is-size-2">{{article.user.username}}</a>
                         </div>
                     </div>
                 </div>
+                {% if article.createdat != article.updatedat %}
+                    <div class="column is-4 is-offset-4">
+                        <time><i><small>modifié le : {{ article.updatedat|localizeddate('none', 'none', 'fr', null, 'd MMMM Y')}} à {{ article.updatedat|localizeddate('none', 'none', 'fr', null, 'HH:mm')}}</small></i></time>
+                    </div>
+                {% else %}
+                    <div class="column is-4 is-offset-4">
+                        <time><i><small>publié le : {{ article.createdat|localizeddate('none', 'none', 'fr', null, 'd MMMM Y')}} à {{ article.createdat|localizeddate('none', 'none', 'fr', null, 'HH:mm')}}</small></i></time>
+                    </div>
+                {% endif %}
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted("ROLE_ADMIN") and app.user.username == article.user.username %}
+                <div class="column is-4 is-offset-4">
+                    <a href="{{path('article_edit', {'article': article.id})}}"><button class="button is-primary is-small is-outlined">Modifier</button></a>
+                    <span></span><span></span>
+                    <a href="{{path('article_remove', {'article': article.id})}}"><button class="button is-primary is-small is-outlined">Supprimer</button></a>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -35,140 +51,101 @@
                 <div class="column">
                     <div class="post-content">
                         <div class="post-tags">
-                            <a class="tag is-rounded" href="#" title="Entertainment" aria-label="Entertainments">Entertainment</a>
-                            <a class="tag is-rounded" href="#" title="Gaming" aria-label="Gamings">Gaming</a>
+                            {% for tag in article.tag %}
+                            <a class="tag is-rounded" href="#" title="{{tag.tagname}}" aria-label="{{tag.tagname}}">{{tag.tagname}}</a>
+                            {% endfor %}
                         </div>
+                        <br/>
                         <div class="post-content__inner">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quid nunc honeste dicit? Quorum sine causa fieri nihil putandum est. Sic consequentibus vestris sublatis prima tolluntur. Facile est hoc cernere in primis puerorum aetatulis. Duo Reges: constructio interrete. Negat enim summo bono afferre incrementum diem. </p>
-                            <h2>Illud dico, ea, quae dicat, praeclare inter se cohaerere.</h2>
-                            <p><i>Idemne, quod iucunde?</i> Callipho ad virtutem nihil adiunxit nisi voluptatem, Diodorus vacuitatem doloris. Quo studio Aristophanem putamus aetatem in litteris duxisse? Cur igitur, cum de re conveniat, non malumus usitate loqui? Fortemne possumus dicere eundem illum Torquatum? Ut necesse sit omnium rerum, quae natura vigeant, similem esse finem, non eundem. Parvi enim primo ortu sic iacent, tamquam omnino sine animo sint. Ego vero isti, inquam, permitto. </p>
-                            <h4>Nunc haec primum fortasse audientis servire debemus.</h4>
-                            <p>Immo alio genere; Quod non faceret, si in voluptate summum bonum poneret. Nec lapathi suavitatem acupenseri Galloni Laelius anteponebat, sed suavitatem ipsam neglegebat; </p>
-                            <blockquote cite="http://loripsum.net">
-                                Tertium autem omnibus aut maximis rebus iis, quae secundum naturam sint, fruentem vivere.
-                            </blockquote>
-                            <p><i>Bonum liberi: misera orbitas.</i> Ad eas enim res ab Epicuro praecepta dantur. Cur deinde Metrodori liberos commendas? Quarum ambarum rerum cum medicinam pollicetur, luxuriae licentiam pollicetur. At enim hic etiam dolore. Quodcumque in mentem incideret, et quodcumque tamquam occurreret. </p>
-                            <p>Nihilo magis. Vitiosum est enim in dividendo partem in genere numerare. Indicant pueri, in quibus ut in speculis natura cernitur. <b>Summae mihi videtur inscitiae.</b> </p>
-                            <p>Pudebit te, inquam, illius tabulae, quam Cleanthes sane commode verbis depingere solebat. In quibus doctissimi illi veteres inesse quiddam caeleste et divinum putaverunt. </p>
-                            <ol>
-                                <li>Pugnant Stoici cum Peripateticis.</li>
-                                <li>Quid enim me prohiberet Epicureum esse, si probarem, quae ille diceret?</li>
-                                <li>Utilitatis causa amicitia est quaesita.</li>
-                                <li>Nos commodius agimus.</li>
-                            </ol>
-                            <h3>Nemo igitur esse beatus potest.</h3>
-                            <p>Optime, inquam. Nobis aliter videtur, recte secusne, postea; Quod autem principium officii quaerunt, melius quam Pyrrho; Negat esse eam, inquit, propter se expetendam. Sed virtutem ipsam inchoavit, nihil amplius. An vero, inquit, quisquam potest probare, quod perceptfum, quod. De malis autem et bonis ab iis animalibus, quae nondum depravata sint, ait optime iudicari. Facile est hoc cernere in primis puerorum aetatulis. </p>
-
+                            {{ article.contenu|raw }}
                         </div>
                     </div>
+                    <br/>
                     <div class="social-share">
                         <p class="is-hidden-mobile">Partager sur :</p>
-                        <a href="https://twitter.com/share?text=Far%20Cry%205%20artwork%20introduces%20us%20to%20a%20religious%20cult&amp;url=https://biron.bironthemes.com/far-cry-5-artwork-introduces-us-to-a-religious-cult/"
+                        <a href="https://twitter.com/share?url={{ app.request.uri }}"
                         onclick="window.open(this.href, 'twitter-share', 'width=580, height=296'); return false;"
                         title="Share on Twitter" aria-label="Share on Twitter" tabindex="-1">
                         <i class="ion-ionic ion-logo-twitter ion-3x"></i>
-                    </a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://biron.bironthemes.com/far-cry-5-artwork-introduces-us-to-a-religious-cult/"
-                    onclick="window.open(this.href, 'facebook-share', 'width=580, height=296'); return false;"
-                    title="Share on Facebook" aria-label="Share on Facebook" tabindex="-1">
-                    <i class="ion-ionic ion-logo-facebook ion-3x"></i>
-                </a>
-                <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=/far-cry-5-artwork-introduces-us-to-a-religious-cult//&amp;title=Far%20Cry%205%20artwork%20introduces%20us%20to%20a%20religious%20cult"
-                onclick="window.open(this.href, 'facebook-share', 'width=580, height=296'); return false;"
-                title="Share on Linkedin" aria-label="Share on Linkedin" tabindex="-1">
-                <i class="ion-ionic ion-logo-linkedin ion-3x"></i>
-            </a>
-        </div>
-        <div class="section">
-            <div class="container">
-                <div class="field">
-                    <label class="label">Comment</label>
-                    <textarea class="textarea has-fixed-size is-small" type="text" placeholder="additional information"></textarea>
-                </div>
-                <div class="field">
-                    <button class="button is-primary is-small is-outlined">Submit</button>
+                        </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.uri }}"
+                        onclick="window.open(this.href, 'facebook-share', 'width=580, height=296'); return false;"
+                        title="Share on Facebook" aria-label="Share on Facebook" tabindex="-1">
+                        <i class="ion-ionic ion-logo-facebook ion-3x"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{ app.request.uri }}"
+                        onclick="window.open(this.href, 'facebook-share', 'width=580, height=296'); return false;"
+                        title="Share on Linkedin" aria-label="Share on Linkedin" tabindex="-1">
+                        <i class="ion-ionic ion-logo-linkedin ion-3x"></i>
+                        </a>
+                    </div>
+                    <div class="section">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <div class="container">
+                                {{ form_start(form)}}
+                                    <div class="field">
+                                        <label class="label">Publier un commentaire</label>
+                                        {{ form_widget(form.contenu, {'attr': {'class' : 'textarea has-fixed-size is-small', 'type' : 'text', 'placeholder' : 'Écrire un commentaire'}})}}
+                                    </div>
+                                    <div class="field">
+                                        <button class="button is-primary is-small is-outlined">Envoyer</button>
+                                    </div>
+                                {{ form_end(form)}}
+                            </div>
+                        {% else %}
+                            <div class="container">
+                                <div class="field">
+                                    <label class="label">Publier un commentaire</label>
+                                    <p>Vous devez être connecté pour publier un commentaire.</p>
+                                    <br>
+                                    <textarea class="textarea has-fixed-size is-small is-danger" type="text" placeholder='Écrire un commentaire' disabled></textarea>
+                                </div>
+                                <div class="field">
+                                    <button class="button is-primary is-small is-outlined" disabled>Envoyer</button>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="section">
+                        <div class="container">
+                            {% for commentaire in commentaires %}
+                                <div class="box">
+                                    <article class="media">
+                                        <div class="media-left">
+                                            <figure class="image is-64x64">
+                                                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                                            </figure>
+                                        </div>
+                                        <div class="media-content">
+                                            <div class="content-header">
+                                                {% if (is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.username == commentaire.user.username) or (is_granted("ROLE_ADMIN"))%}
+                                                <div class="is-pulled-right">
+                                                    <a href="{{path('comment_remove', {'comment': commentaire.id, 'articleSlug': article.slug})}}">
+                                                        <span class="icon has-text-danger">
+                                                          <i class="ion-ionic ion-md-close"></i>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="content">
+                                                <p>
+                                                    <strong>{{ commentaire.user.username }}</strong> <i><small>{{ commentaire.createdAt|localizeddate('none', 'none', 'fr', null, 'd MMMM Y')}} à {{ commentaire.createdAt|localizeddate('none', 'none', 'fr', null, 'HH:mm')}}</small></i>
+                                                    <br>
+                                                    <slot>{{ commentaire.contenu }}</slot>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            {% else %}
+                                <p><em>Il n'y a pas encore de commentaire, soyez le premier !</em></p>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="section">
-            <div class="container">
-                <div class="box">
-                    <article class="media">
-                        <div class="media-left">
-                            <figure class="image is-64x64">
-                                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <div class="content">
-                                <p>
-                                    <strong>Dareine AMOA</strong> <small>maiddima</small> <small>31m</small>
-                                    <br>
-                                    <slot>yO</slot>
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                <div class="box">
-                    <article class="media">
-                        <div class="media-left">
-                            <figure class="image is-64x64 is-rounded">
-                                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <div class="content">
-                                <p>
-                                    <strong>Dareine AMOA</strong> <small>maiddima</small> <small>31m</small>
-                                    <br>
-                                    <slot>Cat ipsum dolor sit amet, ask to go outside and ask to come inside and ask to go outside and ask to come inside for touch water with paw then recoil in horror and good morning sunshine. Check cat door for ambush 10 times before coming in scratch at the door then walk away i shall purr myself to sleep yet please stop looking at your phone and pet me. Poop on couch stare at wall turn and meow stare at wall some more meow again continue staring for catch mouse and gave it as a present or nya nya nyan and meowzer.</slot>
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                <div class="box">
-                    <article class="media">
-                        <div class="media-left">
-                            <figure class="image is-64x64">
-                                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <div class="content">
-                                <p>
-                                    <strong>Dareine AMOA</strong> <small>maiddima</small> <small>31m</small>
-                                    <br>
-                                    <slot>Cat ipsum dolor sit amet, ask to go outside and ask to come inside and ask to go outside and ask to come inside for touch water with paw then recoil in horror and good morning sunshine. Check cat door for ambush 10 times before coming in scratch at the door then walk away i shall purr myself to sleep yet please stop looking at your phone and pet me. Poop on couch stare at wall turn and meow stare at wall some more meow again continue staring for catch mouse and gave it as a present or nya nya nyan and meowzer.</slot>
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                <div class="box">
-                    <article class="media">
-                        <div class="media-left">
-                            <figure class="image is-64x64">
-                                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <div class="content">
-                                <p>
-                                    <strong>Dareine AMOA</strong> <small>maiddima</small> <small>31m</small>
-                                    <br>
-                                    <slot>Cat ipsum dolor sit amet, ask to go outside and ask to come inside and ask to go outside and ask to come inside for touch water with paw then recoil in horror and good morning sunshine. Check cat door for ambush 10 times before coming in scratch at the door then walk away i shall purr myself to sleep yet please stop looking at your phone and pet me. Poop on couch stare at wall turn and meow stare at wall some more meow again continue staring for catch mouse and gave it as a present or nya nya nyan and meowzer.</slot>
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    </div>
     </section>
 </div>
 

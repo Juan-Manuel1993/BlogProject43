@@ -10,8 +10,6 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     {% endblock %}
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
     <div class="container">
@@ -29,17 +27,17 @@
                 </div>
                 <div id="navbarMenu" class="navbar-menu">
                     <div class="navbar-end">
-                        <a class="navbar-item">Gallery</a>
-                        <a class="navbar-item is-active" href="/">Home</a>
-                        {% if is_granted("IS_AUTHENTICATED_FULLY") %}
-                        <a class="navbar-item" href="{{ path('fos_user_profile_show') }}">User</a>
-                        
+                        <a class="navbar-item is-active" href="/">Accueil</a>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {% if is_granted("ROLE_ADMIN") %}
+                        <a class="navbar-item" href="{{ path('article_add') }}">Ajouter un article</a>
                         {% endif %}
-                        <a class="navbar-item"  href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                        <a class="navbar-item" href="{{ path('fos_user_registration_register') }}">
-                {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
-            </a>
-
+                        <a class="navbar-item" href="{{ path('fos_user_profile_show') }}">Profil</a>
+                        <a class="navbar-item" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                        {% else %}
+                        <a class="navbar-item"  href="{{ path('fos_user_security_login') }}">Connexion</a>
+                        <a class="navbar-item" href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -55,16 +53,21 @@
             <div class="columns">
                 <div class="column is-one-fifth">
                     <p class="footer-link-title has-text-weight-bold">Navigation</p>
-                    <a class="navbar-item nav-home is-active" href="#">Home</a>
-                    <a class="navbar-item nav-style-guide" href="#">Gallery</a>
-                    <a class="navbar-item nav-style-guide" href="#">Tag</a>
+                    <a class="navbar-item nav-home is-active" href="/">Accueil</a>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% if is_granted("ROLE_ADMIN") %}
+                    <a class="navbar-item" href="{{ path('article_add') }}">Ajouter un article</a>
+                    {% endif %}
+                    <a class="navbar-item" href="{{ path('fos_user_profile_show') }}">Profil</a>
+                    <a class="navbar-item" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                    {% else %}
+                    <a class="navbar-item"  href="{{ path('fos_user_security_login') }}">Connexion</a>
+                    <a class="navbar-item" href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                    {% endif %}
                 </div>
 
                 <div class="column is-two-fifths">
                     <p class="footer-link-title has-text-weight-bold">Dareine AMOA</p>
-                    <span class="icon is-large">
-                        <a target="_blank" rel="noopener noreferrer" href="https://facebook.com/maiddima"><i class="ion-ionic ion-logo-facebook ion-3x"></i></a>
-                    </span>
                     <span class="icon is-large">
                         <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/maiddima"><i class="ion-ionic ion-logo-twitter ion-3x"></i></a>
                     </span>
@@ -98,6 +101,7 @@
         </div>
     </footer>
 
+    <script src="{{ asset('assets/js/navbar_menu.js') }}"></script>
     {% block scripts %}
 
     {% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentairesRepository")
@@ -17,16 +19,16 @@ class Commentaires
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="contenu")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="commentaires")
      * @ORM\JoinColumn(nullable=false)
      */
     private $article_id;
 
-
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="commentaires")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $email;
+   protected $user;
 
     /**
      * @ORM\Column(type="datetime")
@@ -34,28 +36,19 @@ class Commentaires
     private $created_at;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $contenu;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $pseudo;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $actif;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEmail(): ?string
-    {
-            return $this->$email;
     }
 
     public function getArticleId(): ?Article
@@ -70,9 +63,14 @@ class Commentaires
         return $this;
     }
 
-    public function setEmail(string $email)
+    public function getUser(): ?User
     {
-        $this->$email = $email;
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
@@ -89,6 +87,18 @@ class Commentaires
         return $this;
     }
 
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
     public function getContenu(): ?string
     {
         return $this->contenu;
@@ -101,27 +111,4 @@ class Commentaires
         return $this;
     }
 
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
-    public function getActif(): ?bool
-    {
-        return $this->actif;
-    }
-
-    public function setActif(bool $actif): self
-    {
-        $this->actif = $actif;
-
-        return $this;
-    }
 }

@@ -21,7 +21,10 @@ class ArticleType extends AbstractType
         $builder
             ->add('title', TextType::class, ['required' => false])
             ->add('contenu', TextareaType::class, ['required' => false])
-            ->add('featured_image', FileType::class, ['required' => false])
+            ->add('featured_image', FileType::class, [
+                'required' => false,
+                'data_class' => null
+            ])
             ->add('tag', EntityType::class, [
                 'class' => Tag::class,
                 'choice_label' => 'tag_name',

@@ -4,9 +4,12 @@ namespace App\Controller;
 
 
 use App\Entity\Article;
+use App\Entity\Commentaires;
 use App\Entity\User;
 use App\Entity\Tag;
 use App\Form\ArticleType;
+use App\Form\CommentairesType;
+use App\Utils\Slugger;
 use FOS\UserBundle\Model;
 use Symfony\Form\Extension\Core\Type\IntegerType;
 use Symfony\Form\Extension\Core\Type\DateType;
@@ -21,42 +24,38 @@ class blogcontroller extends AbstractController
 {
 
     /**
-    * @Route("")
+    * @Route("", name="home")
     */
-    public function index()
+    public function index(Request $request)
     {
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findBy(
+            [],
+            ['created_at' => 'desc']
+        );
 
-        return $this->render('index.html.twig', ['controller_name' => 'blogcontroller']);
+        return $this->render('index.html.twig', ['articles' => $articles]);
     }
 
     /**
-    * @Route("/homepage")
+    * @Route("/add", name="article_add")
     */
-    public function homepage(){
-        return $this->render('homepage.html.twig', ['controller_name' => 'blogcontroller']);
-
-    }
-
-  
-    /**
-    * @Route("/add")
-    */
-    public function article_add(Request $request){
+    public function article_add(Request $request, Slugger $slugger){
         $article = new Article();
+
+        $user = $this->getUser();
+        $article->setUser($user);
+
         $form = $this->createForm(ArticleType::class, $article);
+
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setUpdatedAt(new \DateTime());
             $article->setCreatedAt(new \DateTime());
-            $em = $this->getDoctrine()->getManager(); // On récupère l'entity manager
-            $em->persist($article); // On confie notre entité à l'entity manager (on persist l'entité)
-            $em->flush(); // On execute la requete
-            return new Response('L\'article a bien été enregistrer.');
-        }
-        if ($form->isSubmitted() && $form->isValid()) {
-            $article->setLastUpdateDate(new \DateTime());
-            if ($article->getPicture() !== null) {
-                $file = $form->get('picture')->getData();
+            $slug = $slugger->slugify($article->getTitle());
+            $article->setSlug($slug);
+            if ($article->getFeaturedImage() !== null) {
+                $file = $form->get('featured_image')->getData();
                 $fileName =  uniqid(). '.' .$file->guessExtension();
                 try {
                     $file->move(
@@ -66,40 +65,129 @@ class blogcontroller extends AbstractController
                 } catch (FileException $e) {
                     return new Response($e->getMessage());
                 }
-                $article->setPicture($fileName);
+                $article->setFeaturedImage($fileName);
             }
-            if ($article->getIsPublished()) {
-                $article->setPublicationDate(new \DateTime());
-            }
+
             $em = $this->getDoctrine()->getManager(); // On récupère l'entity manager
             $em->persist($article); // On confie notre entité à l'entity manager (on persist l'entité)
             $em->flush(); // On execute la requete
-            return new Response('L\'article a bien été enregistrer.');
+
+            return $this->redirectToRoute('home');
         }
+
         return $this->render('add.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
-    * @Route("/post/{url}",methods={"GET"})
+    * @Route("/post/{articleSlug}",name="article_show", methods={"GET"})
     */
-    public function article_show($url){
-        return $this->render('show.html.twig', ['slug' => $url]);
+    public function article_show($articleSlug, Request $request){
+
+        $article = $this->getDoctrine()->getRepository(Article::class)->findOneBy(['slug' => $articleSlug]);
+
+        $commentaires = $this->getDoctrine()->getRepository(Commentaires::class)->findBy([
+            'article_id' => $article,
+        ],['created_at' => 'desc']);
+
+        if (!$article) {
+            throw $this->createNotFoundException(
+                'No Article found for id '.$articleSlug
+            );
+        }
+
+        $commentaire = new Commentaires();
+
+        $form = $this->createForm(CommentairesType::class, $commentaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user = $this->getUser();
+            $commentaire->setUser($user);
+
+            $commentaire->setArticleId($article);
+            $commentaire->setCreatedAt(new \DateTime('now'));
+            $commentaire->setUpdatedAt(new \DateTime('now'));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($commentaire);
+            $em->flush();
+
+            return $this->redirectToRoute('article_show', array('articleSlug' => $articleSlug));
+        }
+
+        return $this->render('show.html.twig', [
+            'form' => $form->createView(),
+            'article' => $article,
+            'commentaires' => $commentaires,
+        ]);
     }
 
     /**
-    * @Route("/edit/{id}",methods={"GET"})
+    * @Route("/edit/{article}", name="article_edit")
     */
-    public function article_edit($id){
-        return $this->render('edit.html.twig', ['slug' => $id]);
+    public function article_edit(Article $article, Slugger $slugger, Request $request){
+
+        $oldPicture = $article->getFeaturedImage();
+
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article->setUpdatedAt(new \DateTime());
+
+            $slug = $slugger->slugify($article->getTitle());
+            $article->setSlug($slug);
+
+            if ($article->getFeaturedImage() !== null && $article->getFeaturedImage() !== $oldPicture) {
+                $file = $form->get('featured_image')->getData();
+                $fileName =  uniqid(). '.' .$file->guessExtension();
+                try {
+                    $file->move(
+                        $this->getParameter('post_images_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    return new Response($e->getMessage());
+                }
+                $article->setFeaturedImage($fileName);
+            } else {
+                $article->setFeaturedImage($oldPicture);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+    	return $this->render('edit.html.twig', [
+            'article' => $article,
+            'form' => $form->createView()
+        ]);
     }
 
     /**
-    * @Route("/remove/{id}",methods={"GET"})
+    * @Route("/remove/{article}", name="article_remove", methods={"GET"})
     */
-    public function article_remove($id){
-        return new Response('<h1>Delete article: ' .$id. '</h1>');
+    public function article_remove(Article $article){
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($article);
+        $em->flush();
+        return $this->redirectToRoute('home');
+    }
+
+    /**
+    * @Route("/remove/{comment}/{articleSlug}", name="comment_remove", methods={"GET"})
+    */
+    public function comment_remove(Commentaires $comment, $articleSlug){
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($comment);
+        $em->flush();
+        return $this->redirectToRoute('article_show', array('articleSlug' => $articleSlug));
     }
 
 
@@ -149,7 +237,7 @@ class blogcontroller extends AbstractController
 
          // tell Doctrine you want to (eventually) save the Product (no queries yet)
         $entityManager->persist($user);
-       
+
 
         // actually executes the queries (i.e. the INSERT query)
         $entityManager->flush();
@@ -159,7 +247,7 @@ class blogcontroller extends AbstractController
 
 
     /**
-     * @Route("/show/{Articleid}",methods={"GET"},name="show_article")
+     * @Route("/show/d/{Articleid}",methods={"GET"},name="show_article")
      */
     public function showAction($Articleid): Response
     {
@@ -199,7 +287,7 @@ class blogcontroller extends AbstractController
      /**
      * @Route("/getforms",name="getforms")
      */
-    public function getforms(): Response  
+    public function getforms(): Response
     {
 
         $repository = $this->getDoctrine()->getRepository(User::class);
@@ -210,11 +298,9 @@ class blogcontroller extends AbstractController
        /* $userManager = $this->get('fos_user.userManager');
         $users = $userManager->findUsers();
        */
-       return new Response('email found : '.$user->getEmail());   
+       return new Response('email found : '.$user->getEmail());
 
     }
 
 
 }
-
-
