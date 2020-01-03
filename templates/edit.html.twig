@@ -13,7 +13,7 @@
         <div class="columns">
             <div class="column is-8 is-offset-2">
                 {% if article.featuredimage is not null %}
-                    <img width="300" src="{{ asset('uploads/articlePic/' ~ article.featuredimage) }}">
+                    <img width="300" src="{{ asset('assets/uploads/articlePic/' ~ article.featuredimage) }}">
                 {% endif %}
                 {{ form_start(form) }}
                 <div class="field">
