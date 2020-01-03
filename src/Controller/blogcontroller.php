@@ -25,30 +25,13 @@ class blogcontroller extends AbstractController
     */
     public function index()
     {
-         $entityManager = $this->getDoctrine()->getManager();
-
-        $article = new Article();
-        $article->setTitle('Zoro-Article');
-        $article->setSlug("min");
-        $article->setContenu('Bienvenu sur l\'article de zoro');
+        $article = $this->getDoctrine()
+        ->getRepository(Article::class)
+        ->findAll();
 
 
-        $article->setCreatedAt(new \DateTime("02-11-1997 16:19:22"));
-
-        $article->setUpdatedAt(new \DateTime("12-12-1999 13:08:30"));
-
-        $article->setFeaturedImage('null');
-
-        $article->setUserId(1);
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($article);
-
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
-
-        return new Response('Saved new article with id '.$article->getId());
           
-        return $this->render('index.html.twig', ['controller_name' => 'blogcontroller']);
+        return $this->render('index.html.twig', ['articles' => $article]);
 
     }
 
