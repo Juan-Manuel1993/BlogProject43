@@ -25,7 +25,6 @@ class blogcontroller extends AbstractController
     */
     public function index()
     {
-        createArticle();
           
         return $this->render('index.html.twig', ['controller_name' => 'blogcontroller']);
 
