@@ -54,8 +54,8 @@
 
                     <div class="field">
                         {{ form_label(form.tag, 'Tag(s)',{'label_attr': {'class': 'label'}})}}
-                        <div class="control">
-                            {{ form_widget(form.tag, {'attr': {'class' : 'multiple'}})}}
+                        <div class="select is-multiple">
+                            {{ form_widget(form.tag)}}
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,6 @@
 {% endblock %}
 
 {% block scripts %}
-
 <script src="{{ asset('assets/js/file_upload_name.js') }}"></script>
 <script src="{{ asset('assets/js/select.js') }}"></script>
 

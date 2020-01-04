@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\Tag;
 use App\Form\ArticleType;
 use App\Form\CommentairesType;
+use App\Form\TagType;
 use App\Utils\Slugger;
 use FOS\UserBundle\Model;
 use Symfony\Form\Extension\Core\Type\IntegerType;
@@ -19,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class blogcontroller extends AbstractController
 {
@@ -189,6 +191,62 @@ class blogcontroller extends AbstractController
         $em->flush();
         return $this->redirectToRoute('article_show', array('articleSlug' => $articleSlug));
     }
+
+    /**
+    * @Route("/list_tag", name="list_tag")
+    */
+    public function tag(Request $request){
+        $tag = new Tag();
+
+        $form = $this->createForm(TagType::class, $tag);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($tag);
+            $em->flush();
+
+            return $this->redirectToRoute('list_tag');
+        }
+
+        $tags = $this->getDoctrine()->getRepository(Tag::class)->findBy(
+            [],
+            ['tag_name' => 'asc']
+        );
+
+        return $this->render('list_tag.html.twig', [
+            'form' => $form->createView(),
+            'tags' => $tags,
+        ]);
+    }
+
+    /**
+    * @Route("/remove_tag/{tag}", name="tag_remove", methods={"GET"})
+    */
+    public function tag_remove(Tag $tag){
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($tag);
+        $em->flush();
+        return $this->redirectToRoute('list_tag');
+    }
+
+    /**
+    * @Route("/tag/{tag}", name="tag", methods={"GET"})
+    */
+    public function tag_list($tag){
+
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findBy([]);
+        //
+        // $articles = $this->getDoctrine()->getRepository(Article::class)->findBy(
+        //     ['tag' => $article],
+        //     ['created_at' => 'desc']
+        // );
+
+        return $this->render('tag.html.twig', ['articles' => $articles, 'value' => $tag]);
+    }
+
+
 
 
       /**

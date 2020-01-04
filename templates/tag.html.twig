@@ -1,14 +1,17 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Accueil - {{ parent() }}{% endblock %}
+{% block title %}Recherche tag : {{value}} - {{ parent() }}{% endblock %}
 
 {% block content %}
-
 <div class="container">
     <div class="section">
         <div class="column">
             <div class="section">
                 <div class="columns is-multiline">
+                    <div class="column is-full">
+                        <h2 class="title has-text-centered is-2">Résultats article(s) avec : <i>{{value}}</i></h2>
+                    </div>
+
                     {% for article in articles %}
                         <div class="column is-one-third">
                             <div class="card bottom-border">
@@ -21,9 +24,11 @@
                                 </div>
                                 <div class="card-content is-mobile is-tablet">
                                     <div class="is-clearfix">
+                                        <div class="tags is-pulled-left">
                                             {% for tag in article.tag %}
-                                            <a class="tag is-rounded is-outlined is-primary" href="#" title="{{tag.tagname}}" aria-label="{{tag.tagname}}">{{tag.tagname}}</a>
+                                            <a class="tag is-rounded" href="#" title="{{tag.tagname}}" aria-label="{{tag.tagname}}">{{tag.tagname}}</a>
                                             {% endfor %}
+                                        </div>
                                     </div>
                                     <div class="is-clearfix">
                                         <div class="is-pulled-left">
@@ -41,11 +46,14 @@
                                 </div>
                             </div>
                         </div>
+                    {% else %}
+                    <div class="column is-full">
+                        <h2 class="title has-text-centered is-2"><i>Il n'existe encore aucun article avec ce tag.</i></h2>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Liste des tags - {{ parent() }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="section">
+        <div class="box">
+            {{ form_start(form)}}
+            <div class="field has-addons">
+                <div class="control is-expanded has-icons-left">
+                    {{ form_widget(form.tag_name, {'attr': {'placeholder': 'Nom de tag', 'type': 'search','class': 'input has-text-centered'}})}}
+                    <span class="icon is-small is-left">
+                        <i class="ion-ionic ion-md-pricetags"></i>
+                    </span>
+                </div>
+                <div class="control">
+                    <button class="button is-primary is-outlined">Ajouter</button>
+                </div>
+            </div>
+            {{ form_end(form)}}
+        </div>
+
+        <div class="column">
+            <div class="columns is-multiline">
+                {% for tag in tags %}
+                <div class="column is-one-quarter">
+                    <div class="box">
+                        <a href="{{path('tag_remove', {'tag': tag.id})}}">
+                            <button class="delete" href="{{path('tag_remove', {'tag': tag.id})}}"></button>
+                        </a>
+                        <h4 id="const" class="title is-4">{{tag.tagname}}</h4>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
