@@ -1,8 +1,10 @@
 {% trans_default_domain 'FOSUserBundle' %}
-
+ <div class="hero is-fullheight "  style="background-image:url(/assets/images/on.jpg)" >
+	<div class="fos_user_user_show  is-size-3 has-text-black-bis">
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
     {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+   
+    <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+    </div>
     </div>
 {{ form_end(form) }}
