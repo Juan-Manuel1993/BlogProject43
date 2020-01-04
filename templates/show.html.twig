@@ -15,7 +15,7 @@
                     <div class="is-clearfix">
                         <div class="is-pulled-left">
                             <figure class="image is-128x128">
-                                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                                <img class="is-rounded" src="{{ asset('assets/images/avatar.png')}}">
                             </figure>
                         </div>
                         <div class="is-pulled-right">
@@ -32,7 +32,13 @@
                         <time><i><small>publié le : {{ article.createdat|localizeddate('none', 'none', 'fr', null, 'd MMMM Y')}} à {{ article.createdat|localizeddate('none', 'none', 'fr', null, 'HH:mm')}}</small></i></time>
                     </div>
                 {% endif %}
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted("ROLE_ADMIN") and app.user.username == article.user.username %}
+
+                <div class="post-tags">
+                    {% for tag in article.tag %}
+                    <a class="tag is-rounded is-outlined is-medium is-primary" href="{{ path('tag', {'tag': tag.tagname}) }}" title="{{tag.tagname}}" style="text-decoration:none;" aria-label="{{tag.tagname}}">{{tag.tagname}}</a>
+                    {% endfor %}
+                </div>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted("ROLE_ADMIN")%}
                 <div class="column is-4 is-offset-4">
                     <a href="{{path('article_edit', {'article': article.id})}}"><button class="button is-primary is-small is-outlined">Modifier</button></a>
                     <span></span><span></span>
@@ -50,11 +56,6 @@
             <div class="columns">
                 <div class="column">
                     <div class="post-content">
-                        <div class="post-tags">
-                            {% for tag in article.tag %}
-                            <a class="tag is-rounded" href="#" title="{{tag.tagname}}" aria-label="{{tag.tagname}}">{{tag.tagname}}</a>
-                            {% endfor %}
-                        </div>
                         <br/>
                         <div class="post-content__inner">
                             {{ article.contenu|raw }}
@@ -113,16 +114,16 @@
                                     <article class="media">
                                         <div class="media-left">
                                             <figure class="image is-64x64">
-                                                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                                                <img src="{{ asset('assets/images/avatar.png')}}" alt="Image">
                                             </figure>
                                         </div>
                                         <div class="media-content">
                                             <div class="content-header">
                                                 {% if (is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.username == commentaire.user.username) or (is_granted("ROLE_ADMIN"))%}
                                                 <div class="is-pulled-right">
-                                                    <a href="{{path('comment_remove', {'comment': commentaire.id, 'articleSlug': article.slug})}}">
+                                                    <a href="{{path('comment_remove', {'comment': commentaire.id, 'articleSlug': article.slug})}}" title="Supprimer commentaire" aria-label="Supprimer commentaire">
                                                         <span class="icon has-text-danger">
-                                                          <i class="ion-ionic ion-md-close"></i>
+                                                          <i class="ion-ionic ion-md-close ion-2x"></i>
                                                         </span>
                                                     </a>
                                                 </div>

@@ -1,11 +1,11 @@
-{% trans_default_domain 'FOSUserBundle' %}  
+{% trans_default_domain 'FOSUserBundle' %}
 
 {% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div> 
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
 <form action="{{ path("fos_user_security_check") }}" method="post">
-     
+
     {% if csrf_token %}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     {% endif %}
@@ -16,31 +16,31 @@
         <div class="column is-4 is-offset-4">
             <div class="button">
              <button class="button is-white">
-                 
+
              {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
                 <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                    Déconnexion
                 </a>
             {% else %}
-                <a  href="/login">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                <a  href="/login">Connexion</a>
             {% endif %}
-             </button>      
+             </button>
         </div>
 
         <div class="button">
              <button class="button is-white">
-        
+
             <a href="/register/">
-                {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
+                Inscription
             </a>
         </button>
            </div>
            <div class="button">
              <button class="button is-white">
-        
+
             <a href="/">
-                Home
+                Accueil
             </a>
         </button>
            </div>
@@ -48,7 +48,7 @@
                     <p class="title has-text-white is-size-3">Please login to proceed.</p>
                         <div class="box">
                             <figure class="avatar">
-                                <img  src="/assets/images/log.jpeg" alt="login logo"/>
+                                <img  src="{{ asset('assets/images/avatar.png')}}" alt="login logo"/>
                             </figure>
 
                             <div class="field">
@@ -61,30 +61,30 @@
                             <input type="password" id="password" name="_password" required="required" autocomplete="current-password" placeholder="Password" />
                         </div>
 
-    
+
 
                             <label class="checkbox">
                                 <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
                                 <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                             
-                                
+
+
                             </label>
 
-                           
+
                             <div>
-                                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />    
+                                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
                             </div>
-                         
+
 
                      </div>
-       
+
         </div>
     </div>
 </div>
 
 </div>
 
-   
+
 
 
 </form>

@@ -22,7 +22,7 @@
                                 <div class="card-content is-mobile is-tablet">
                                     <div class="is-clearfix">
                                             {% for tag in article.tag %}
-                                            <a class="tag is-rounded is-outlined is-primary" href="#" title="{{tag.tagname}}" aria-label="{{tag.tagname}}">{{tag.tagname}}</a>
+                                            <a class="tag is-rounded is-outlined is-primary" href="{{ path('tag', {'tag': tag.tagname}) }}" style="text-decoration:none;" title="{{tag.tagname}}" aria-label="{{tag.tagname}}">{{tag.tagname}}</a>
                                             {% endfor %}
                                     </div>
                                     <div class="is-clearfix">

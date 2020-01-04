@@ -9,48 +9,48 @@
             <div class="column is-4 is-offset-4">
                  <div class="button">
              <button class="button is-white">
-                 
+
                  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
                 <a href="{{ path('fos_user_security_logout') }}">
                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                 </a>
             {% else %}
-                <a href="/login">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                <a href="/login">Connexion</a>
             {% endif %}
         </button>
     </div>
                 <div class="button">
              <button class="button is-white">
-            
+
             <a href="/register/">
-                {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
+                Inscription
             </a>
             </button>
         </div>
 
           <div class="button">
              <button class="button is-white">
-        
+
             <a href="/">
-                Home
+                Accueil
             </a>
         </button>
     </div>
 
-      
 
-                    
+
+
                 <hr class="login-hr">
                     <p class="title has-text-white is-size-3">Please Register to proceed.</p>
                     <div class="box">
                         <figure class="avatar">
-                            <img  src="/assets/images/log.jpeg" alt="login logo"/>
+                            <img  src="{{ asset('assets/images/avatar.png')}}" alt="login logo"/>
                         </figure>
-    
-     <h3 class="title has-text-black is-size-6">  
 
-        
+     <h3 class="title has-text-black is-size-6">
+
+
     {{ form_widget(form) }}
 
     </h3>
@@ -58,18 +58,18 @@
     <div>
          <input type="submit" value="{{ 'registration.submit'|trans }}" />
     </div>
-     
- 
+
+
 
 </div>
-    
 
-                        </div> 
+
+                        </div>
 
 
                     </div>
             </div>
         </div>
-    
-   
+
+
 {{ form_end(form) }}

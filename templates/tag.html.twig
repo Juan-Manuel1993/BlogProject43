@@ -10,6 +10,8 @@
                 <div class="columns is-multiline">
                     <div class="column is-full">
                         <h2 class="title has-text-centered is-2">Résultats article(s) avec : <i>{{value}}</i></h2>
+                        <br><br>
+                        <h4 class="title has-text-centered is-4 is-danger"><i>Cette page n'est pas encore opérationelle. (La recherche ne s'effectue pas bien 😢)</i></h4>
                     </div>
 
                     {% for article in articles %}
@@ -26,7 +28,7 @@
                                     <div class="is-clearfix">
                                         <div class="tags is-pulled-left">
                                             {% for tag in article.tag %}
-                                            <a class="tag is-rounded" href="#" title="{{tag.tagname}}" aria-label="{{tag.tagname}}">{{tag.tagname}}</a>
+                                            <a class="tag is-rounded is-outlined is-primary" href="{{ path('tag', {'tag': tag.tagname}) }}" style="text-decoration:none;" title="{{tag.tagname}}" aria-label="{{tag.tagname}}">{{tag.tagname}}</a>
                                             {% endfor %}
                                         </div>
                                     </div>

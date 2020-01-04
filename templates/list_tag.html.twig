@@ -5,6 +5,8 @@
 {% block content %}
 <div class="container">
     <div class="section">
+        <h2 class="title has-text-centered is-2">Liste des tags</h2>
+        {% if is_granted("ROLE_ADMIN") %}
         <div class="box">
             {{ form_start(form)}}
             <div class="field has-addons">
@@ -20,18 +22,20 @@
             </div>
             {{ form_end(form)}}
         </div>
+        {% endif %}
 
-        <div class="column">
-            <div class="columns is-multiline">
+
+        <div class="column is-full">
+            <div class="field is-grouped is-grouped-multiline">
                 {% for tag in tags %}
-                <div class="column is-one-quarter">
-                    <div class="box">
-                        <a href="{{path('tag_remove', {'tag': tag.id})}}">
-                            <button class="delete" href="{{path('tag_remove', {'tag': tag.id})}}"></button>
-                        </a>
-                        <h4 id="const" class="title is-4">{{tag.tagname}}</h4>
+                    <div class="control">
+                        <div class="tags has-addons">
+                            <a class="tag is-medium is-rounded is-outlined is-primary" href="{{ path('tag', {'tag': tag.tagname}) }}" title="{{tag.tagname}}" style="text-decoration:none;" aria-label="{{tag.tagname}}">{{tag.tagname}}</a>
+                            {% if is_granted("ROLE_ADMIN") %}
+                            <a class="tag is-light is-medium is-delete is-rounded" title="Supprimer {{tag.tagname}}" aria-label="Supprimer {{tag.tagname}}" href="{{path('tag_remove', {'tag': tag.id})}}"></a>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
         </div>
