@@ -170,7 +170,7 @@ class blogcontroller extends AbstractController
             $em->persist($article);
             $em->flush();
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('article_show', array('articleSlug' => $slug));
         }
 
     	return $this->render('edit.html.twig', [
