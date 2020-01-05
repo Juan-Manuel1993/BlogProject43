@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>{% block title %}Blog of Juan & Dareine{% endblock %}</title>
     <meta charset="UTF-8">
@@ -11,6 +12,7 @@
     {% block stylesheets %}
     {% endblock %}
 </head>
+
 <body>
     <div class="container">
         <nav class="navbar">
@@ -32,12 +34,15 @@
                         {% if is_granted("ROLE_ADMIN") %}
                         <a class="navbar-item" href="{{ path('article_add') }}">Ajouter un article</a>
                         {% endif %}
+                        <a class="navbar-item" href="{{ path('list_tag') }}">Tags</a>
                         <a class="navbar-item" href="{{ path('fos_user_profile_show') }}">Profil</a>
                         <a class="navbar-item" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                        <a class="navbar-item" href="{{ path('about') }}">À Propos</a>
                         {% else %}
                         <a class="navbar-item" href="{{ path('list_tag') }}">Tags</a>
                         <a class="navbar-item"  href="{{ path('fos_user_security_login') }}">Connexion</a>
                         <a class="navbar-item" href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                        <a class="navbar-item" href="{{ path('about') }}">À Propos</a>
                         {% endif %}
                     </div>
                 </div>
@@ -49,7 +54,7 @@
 
     {% endblock %}
 
-    <footer>
+    <footer class="footer">
         <div class="container">
             <div class="columns">
                 <div class="column is-one-fifth">
@@ -59,12 +64,15 @@
                     {% if is_granted("ROLE_ADMIN") %}
                     <a class="navbar-item" href="{{ path('article_add') }}">Ajouter un article</a>
                     {% endif %}
+                    <a class="navbar-item" href="{{ path('list_tag') }}">Tags</a>
                     <a class="navbar-item" href="{{ path('fos_user_profile_show') }}">Profil</a>
                     <a class="navbar-item" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                    <a class="navbar-item" href="{{ path('about') }}">À Propos</a>
                     {% else %}
                     <a class="navbar-item" href="{{ path('list_tag') }}">Tags</a>
                     <a class="navbar-item"  href="{{ path('fos_user_security_login') }}">Connexion</a>
                     <a class="navbar-item" href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                    <a class="navbar-item" href="{{ path('about') }}">À Propos</a>
                     {% endif %}
                 </div>
 

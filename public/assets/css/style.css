@@ -2,3 +2,19 @@
     position: relative;
     font-size: 3em;
 }
+
+.ion-2x:before {
+    position: relative;
+    font-size: 2em;
+}
+
+.background-img{
+    -webkit-background-size:cover;
+    background-size:cover;
+    background-position:50%;
+    background-repeat:no-repeat
+}
+
+footer {
+    flex-shrink: 0;
+}

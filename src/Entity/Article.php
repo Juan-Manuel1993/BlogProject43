@@ -42,7 +42,7 @@ class Article
     private $updated_at;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $featured_image;
 
@@ -131,7 +131,7 @@ class Article
         return $this->featured_image;
     }
 
-    public function setFeaturedImage(string $featured_image): self
+    public function setFeaturedImage(?string $featured_image): self
     {
         $this->featured_image = $featured_image;
 

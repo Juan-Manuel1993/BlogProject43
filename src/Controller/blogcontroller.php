@@ -39,6 +39,13 @@ class blogcontroller extends AbstractController
     }
 
     /**
+    * @Route("/about", name="about")
+    */
+    public function about(){
+        return $this->render('about.html.twig', ['controller_name' => 'blogcontroller']);
+    }
+
+    /**
     * @Route("/add", name="article_add")
     */
     public function article_add(Request $request, Slugger $slugger){
@@ -143,7 +150,7 @@ class blogcontroller extends AbstractController
             $slug = $slugger->slugify($article->getTitle());
             $article->setSlug($slug);
 
-            if ($article->getFeaturedImage() !== null && $article->getFeaturedImage() !== $oldPicture) {
+            if ($form->get('featured_image')->getData() !== null && $article->getFeaturedImage() !== null && $article->getFeaturedImage() !== $oldPicture) {
                 $file = $form->get('featured_image')->getData();
                 $fileName =  uniqid(). '.' .$file->guessExtension();
                 try {
@@ -245,120 +252,4 @@ class blogcontroller extends AbstractController
 
         return $this->render('tag.html.twig', ['articles' => $articles, 'value' => $tag]);
     }
-
-
-
-
-      /**
-     * @Route("/new", name="create_article")
-     */
-    public function createArticle(): Response
-    {
-        // you can fetch the EntityManager via $this->getDoctrine()
-        // or you can add an argument to the action: createProduct(EntityManagerInterface $entityManager)
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $article = new Article();
-        $article->setNOM('Zoro-Article');
-        $article->setContenu('Bienvenu sur l\'article de zoro');
-
-
-        $article->setCreatedAt(new \DateTime("02-11-1997 16:19:22"));
-
-        $article->setUpdatedAt(new \DateTime("12-12-1999 13:08:30"));
-
-        $article->setFeaturedImage('null');
-
-        $article->setUserId(1);
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($article);
-
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
-
-        return new Response('Saved new article with id '.$article->getId());
-    }
-
-
-     /**
-     * @Route("/newuser", name="create_user")
-     */
-    public function createUser(): Response
-    {
-        // you can fetch the EntityManager via $this->getDoctrine()
-        // or you can add an argument to the action: createProduct(EntityManagerInterface $entityManager)
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $user = new User();
-
-        $user->SetId(1);
-
-         // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($user);
-
-
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
-
-        return new Response('Saved new user with id '.$user->GetId());
-    }
-
-
-    /**
-     * @Route("/show/d/{Articleid}",methods={"GET"},name="show_article")
-     */
-    public function showAction($Articleid): Response
-    {
-    $article = $this->getDoctrine()
-        ->getRepository(Article::class)
-        ->find($Articleid);
-
-    if (!$article) {
-        throw $this->createNotFoundException(
-            'No Article found for id '.$Articleid
-        );
-    }
-
-    // ... do something, like pass the $product object into a template
-     return new Response('Article Found with id '.$article->getContenu());
-    }
-/*
-
-    public function new(Request $request)
-    {
-        // creates a task object and initializes some data for this example
-        $user = new Task();
-        $task->setTask('Write a blog post');
-        $task->setDueDate(new \DateTime('tomorrow'));
-
-        $form = $this->createFormBuilder($task)
-            ->add('task', TextType::class)
-            ->add('dueDate', DateType::class)
-            ->add('save', SubmitType::class, ['label' => 'Create Task'])
-            ->getForm();
-
-        // ...
-    }
-
-    */
-
-     /**
-     * @Route("/getforms",name="getforms")
-     */
-    public function getforms(): Response
-    {
-
-        $repository = $this->getDoctrine()->getRepository(User::class);
-
-        $user = $repository->find(1);
-
-        //$userManager = $this->UserManager;
-       /* $userManager = $this->get('fos_user.userManager');
-        $users = $userManager->findUsers();
-       */
-       return new Response('email found : '.$user->getEmail());
-
-    }
-
-
 }

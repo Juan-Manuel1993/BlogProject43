@@ -22,8 +22,8 @@ class ArticleType extends AbstractType
             ->add('title', TextType::class, ['required' => false])
             ->add('contenu', TextareaType::class, ['required' => false])
             ->add('featured_image', FileType::class, [
+                'data_class' => null,
                 'required' => false,
-                'data_class' => null
             ])
             ->add('tag', EntityType::class, [
                 'class' => Tag::class,

@@ -4,87 +4,67 @@
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
-<form action="{{ path("fos_user_security_check") }}" method="post">
+<section class="section">
+    <div class="column">
+        <div class="box is-outlined">
+            <div class="section-heading">
+                <h3 class="title is-2 has-text-black has-text-centered">Connexion</h3>
+            </div>
 
-    {% if csrf_token %}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-    {% endif %}
+            <br>
 
-<div class="hero is-fullheight "  style="background-image:url(/assets/images/bul.jpg)" >
-<div class="hero-body">
-    <div class="container has-text-centered">
-        <div class="column is-4 is-offset-4">
-            <div class="button">
-             <button class="button is-white">
-
-             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                <a href="{{ path('fos_user_security_logout') }}">
-                    Déconnexion
-                </a>
-            {% else %}
-                <a  href="/login">Connexion</a>
-            {% endif %}
-             </button>
-        </div>
-
-        <div class="button">
-             <button class="button is-white">
-
-            <a href="/register/">
-                Inscription
-            </a>
-        </button>
-           </div>
-           <div class="button">
-             <button class="button is-white">
-
-            <a href="/">
-                Accueil
-            </a>
-        </button>
-           </div>
-                <hr class="login-hr">
-                    <p class="title has-text-white is-size-3">Please login to proceed.</p>
-                        <div class="box">
-                            <figure class="avatar">
-                                <img  src="{{ asset('assets/images/avatar.png')}}" alt="login logo"/>
-                            </figure>
-
-                            <div class="field">
-                                <label for="username">{{ 'security.login.username'|trans }}</label>
-                                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username"  placeholder="Username">
-                            </div>
+            <div class="column">
+                <div class="column is-4 is-offset-4">
+                    <form action="{{ path("fos_user_security_check") }}" method="post">
+                        {% if csrf_token %}
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        {% endif %}
 
                         <div class="field">
-                            <label for="password">{{ 'security.login.password'|trans }}</label>
-                            <input type="password" id="password" name="_password" required="required" autocomplete="current-password" placeholder="Password" />
+                            <label for="username" class="label">Nom d'utilisateur</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username"  placeholder="Nom d'utilisateur">
+                                <span class="icon is-small is-left">
+                                    <i class="ion-ionic ion-md-person"></i>
+                                </span>
+                            </div>
                         </div>
 
-
-
-                            <label class="checkbox">
-                                <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-                                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-
-
-                            </label>
-
-
-                            <div>
-                                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+                        <div class="field">
+                            <label for="password" class="label">Mot de passe</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="password" id="password" name="_password" required="required" autocomplete="current-password" placeholder="Mot de passe" />
+                                <span class="icon is-small is-left">
+                                    <i class="ion-ionic ion-md-key"></i>
+                                </span>
                             </div>
+                        </div>
 
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox">
+                                    <label class="label" for="remember_me">Se souvenir de moi <input type="checkbox" id="remember_me" name="_remember_me" value="on" /></label>
+                                </label>
+                            </div>
+                        </div>
 
-                     </div>
-
+                        <div class="field is-grouped has-text-centered">
+                            <div class="control">
+                                <button class="button is-medium is-primary is-outlined" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}">
+                                    <span class="icon">
+                                        <i class="ion-ionic ion-md-log-in"></i>
+                                    </span>
+                                <span>S'inscrire</span></button>
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="is-centerd">
+                        <p>Pas encore inscrit ?</p>
+                        <a href="/register/">Inscription</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-</div>
-
-
-
-
-</form>
+</section>
