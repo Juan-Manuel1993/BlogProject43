@@ -12,7 +12,7 @@
             <div class="column">
                 <div class="column is-4 is-offset-4">
 
-                    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+                    {{ form_start(form, {'action': path('fos_user_registration_register')}) }}
                     <div class="field">
                         {{ form_label(form.email, 'Email',{'label_attr': {'class': 'label'}})}}
                         <div class="control has-icons-left">
