@@ -1,30 +1,41 @@
 {% extends "@FOSUser/layout.html.twig" %}
 
-{% trans_default_domain 'FOSUserBundle' %}
+{% block title_fos %}Activation du compte de {{app.user.username}}{{ parent() }}{% endblock %}
 
 {% block fos_user_content %}
-<div class="hero is-fullheight "  style="background-image:url(/assets/images/na.jpg)" >
-<nav class="level">
- 
-  <p class="level-item has-text-centered">
-    <a class="link" href="{{ path('fos_user_security_logout') }}">Home </a>
-  </p>
-
-   <p class="level-item has-text-centered">
-    <a class="link" href="{{ path('fos_user_registration_register') }}">
-                {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
-            </a>
-  </p>
-
-</nav>
-	<div class="hero-head is-size-2 has-text-link has-text-centered">{{ 'registration.confirmed'|trans({'%username%': user.username}) }}
-    
-
-    {% if targetUrl %}
-    <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
-    {% endif %}
-
-
+<div class="container">
+    <div class="section">
+        <div class="column">
+            <div class="section">
+                <div class="box">
+                    <div class="section">
+                        <div class="columns is-mobile">
+                            <div class="column is-half is-offset-one-quarter">
+                                <section>
+                                    <h2 class="title has-text-centered is-2"> {{user.username}}, votre compte a été créé avec succès.</h2>
+                                    <div class="control">
+                                        <div class="field is-grouped has-text-centered">
+                                            <a class="link" href="{{ path('home') }}">
+                                                <button class="button is-medium is-primary is-outlined">
+                                                    <span class="icon">
+                                                        <i class="ion-ionic ion-md-home"></i>
+                                                    </span>
+                                                    <span>Accueil</span>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </section>
+                                {% if targetUrl %}
+                                <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock fos_user_content %}
