@@ -3,73 +3,99 @@
 
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
 
-<div class="hero is-fullheight "  style="background-image:url(/assets/images/bul.jpg)" >
-    <div class="hero-body" >
-        <div class="container has-text-centered"  >
-            <div class="column is-4 is-offset-4">
-                <div class="button">
-                    <button class="button is-white">
+<section class="section">
+    <div class="column">
+        <div class="box is-outlined">
+            <div class="section-heading">
+                <h3 class="title is-2 has-text-black has-text-centered">Inscription</h3>
+            </div>
+            <br>
 
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                        <a href="{{ path('fos_user_security_logout') }}">
-                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                        </a>
-                        {% else %}
-                        <a href="/login">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                        {% endif %}
-                    </button>
-                </div>
-                <div class="button">
-                    <button class="button is-white">
+            <div class="column">
+                <div class="column is-4 is-offset-4">
 
-                        <a href="/register/">
-                            {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
-                        </a>
-                    </button>
-                </div>
-
-                <div class="button">
-                    <button class="button is-white">
-
-                        <a href="/">
-                            Home
-                        </a>
-                    </button>
-                </div>
-
-
-
-
-                <hr class="login-hr">
-                <p class="title has-text-white is-size-3">Please Register to proceed.</p>
-                <div class="box">
-                    <figure class="avatar">
-                        <img  src="/assets/images/log.jpeg" alt="login logo"/>
-                    </figure>
-
-                    <h3 class="title has-text-black is-size-6">
-
-
-                        {{ form_widget(form) }}
-
-                    </h3>
-
-                    <div>
-                        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+                    <div class="field">
+                        {{ form_label(form.email, 'Email',{'label_attr': {'class': 'label'}})}}
+                        <div class="control has-icons-left">
+                            {{ form_widget(form.email, {'attr': {'placeholder': 'e.g. exemple@ex.com', 'class': 'input'}})}}
+                            <span class="icon is-small is-left">
+                                <i class="ion-ionic ion-md-at"></i>
+                            </span>
+                            <p class="help is-danger">{{ form_errors(form.email, {'errors_attr': {'class' : 'help is-danger'}})}}
+                        </div>
                     </div>
 
+                    <div class="field">
+                        {{ form_label(form.username, 'Nom d\'utilisateur',{'label_attr': {'class': 'label'}})}}
+                        <div class="control has-icons-left">
+                            {{ form_widget(form.username, {'attr': {'placeholder': 'e.g. Dinah Washington', 'class': 'input'}})}}
+                            <span class="icon is-small is-left">
+                                <i class="ion-ionic ion-md-person"></i>
+                            </span>
+                            <p class="help is-danger">{{ form_errors(form.username, {'errors_attr': {'class' : 'help is-danger'}})}}
+                        </div>
+                    </div>
 
+                    <div class="field">
+                        {{ form_label(form.plainPassword.first, 'Mot de passe',{'label_attr': {'class': 'label'}})}}
+                        <div class="control has-icons-left">
+                            {{ form_widget(form.plainPassword.first, {'attr': {'placeholder': 'Mot de passe', 'class': 'input'}})}}
+                            <span class="icon is-small is-left">
+                                <i class="ion-ionic ion-md-key"></i>
+                            </span>
+                            <p class="help is-danger">{{ form_errors(form.plainPassword.first, {'errors_attr': {'class' : 'help is-danger'}})}}
+                        </div>
+                    </div>
 
+                    <div class="field">
+                        {{ form_label(form.plainPassword.second, 'Confirmer mot de passe',{'label_attr': {'class': 'label'}})}}
+                        <div class="control has-icons-left">
+                            {{ form_widget(form.plainPassword.second, {'attr': {'placeholder': 'Confirmer mot de passe', 'class': 'input'}})}}
+                            <span class="icon is-small is-left">
+                                <i class="ion-ionic ion-md-lock"></i>
+                            </span>
+                            <p class="help is-danger">{{ form_errors(form.plainPassword.second, {'errors_attr': {'class' : 'help is-danger'}})}}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.image, 'Photo de profil',{'label_attr': {'class': 'label'}})}}
+                        <div id="file-js-example" class="file has-name is-fullwidth">
+                            <label class="file-label">
+                                {{ form_widget(form.image, {'attr': {'class' : 'file-input'}})}}
+                                <span class="file-cta">
+                                    <span class="file-icon">
+                                        <i class="ion-ionic ion-md-image"></i>
+                                    </span>
+                                    <span class="file-label">
+                                        Choisissez une image…
+                                    </span>
+                                </span>
+                                <span class="file-name">
+                                    Aucun fichier chargé
+                                </span>
+                            </label>
+                        </div>
+                        <p class="help is-danger">{{ form_errors(form.image, {'errors_attr': {'class' : 'help is-danger'}})}}
+                    </div>
+
+                    <div class="field is-grouped has-text-centered">
+                        <div class="control">
+                            <button class="button is-medium is-primary is-outlined" type="submit" value="{{ 'registration.submit'|trans }}">
+                                <span class="icon">
+                                    <i class="ion-ionic ion-md-log-in"></i>
+                                </span>
+                            <span>S'inscrire</span></button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                    <div class="is-centerd">
+                        <p>Déjà inscrit ?</p>
+                        <a href="/login">Connexion</a>
+                    </div>
                 </div>
-
-
             </div>
-
-
         </div>
+
     </div>
-</div>
-
-
-{{ form_end(form) }}
+</section>
